@@ -17,36 +17,88 @@
       class="d-flex flex-column bd-highlight justify-content-center align-items-center w-75 ms-5"
     >
       <h1 class="mb-3">Design Tekken Reborn Fighter</h1>
-      <form>
+      <!-- We bind @ModelAttribute called fighter to this HTML form-->
+      <form method="post" th:object="${fighter}">
+        <div th:if="${#fields.hasErrors()}">
+          <span> Please correct the problems below and resubmit. </span>
+        </div>
         <div class="mb-3">
           <label for="fighterName" class="form-label">Fighter name: </label>
+          <!--By using th:field we "bind" fighter model java fields to html input that we will provide-->
           <input
             type="text"
             class="form-control"
             id="fighterName"
+            th:field="*{name}"
             aria-describedby="fighterHelp"
           />
           <div id="fighterHelp" class="form-text">
             Provide decent fighter name
           </div>
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('name')}"
+            th:errors="*{name}"
+          >
+            Name error
+          </span>
         </div>
         <div class="mb-3">
           <label for="damagePerHit" class="form-label">Damage per hit: </label>
-          <input type="number" class="form-control" id="damagePerHit" />
+          <input
+            type="number"
+            th:field="*{damagePerHit}"
+            class="form-control"
+            id="damagePerHit"
+          />
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('damagePerHit')}"
+            th:errors="*{damagePerHit}"
+          >
+            Name error
+          </span>
         </div>
         <div class="mb-3">
           <label for="health" class="form-label">Health: </label>
-          <input type="number" class="form-control" id="health" />
+          <input
+            type="number"
+            th:field="*{health}"
+            class="form-control"
+            id="health"
+          />
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('health')}"
+            th:errors="*{health}"
+            >Name Error
+          </span>
         </div>
         <div class="mb-3">
           <label for="resistance" class="form-label">Resistance: </label>
-          <input type="number" class="form-control" id="resistance" />
+          <input
+            type="number"
+            step="0.1"
+            th:field="*{resistance}"
+            class="form-control"
+            id="resistance"
+          />
+          <span
+            class="validationError"
+            th:if="${#fields.hasErrors('resistance')}"
+            th:errors="*{resistance}"
+            >Resistance Error
+          </span>
         </div>
-        <select class="form-select mt-5 mb-5" aria-label="Anime selection">
+        <select
+          th:field="*{animeFrom}"
+          class="form-select mt-5 mb-5"
+          aria-label="Anime selection"
+        >
           <option
             th:each="anime: ${animes}"
-            value="${anime}"
-            th:text="${anime}"
+            th:value="${anime}"
+            th:text="${anime.title}"
           />
         </select>
         <button type="submit" class="btn btn-primary mt-5">
