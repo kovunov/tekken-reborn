@@ -8,6 +8,8 @@ import com.cpan252.tekkenreborn.model.Fighter;
 //table in the database
 public interface FighterRepository {
     Iterable<Fighter> findAll();
+
     Optional<Fighter> findById(Long id);
-    Fighter save(Fighter fighter);
+
+    void save(Fighter fighter);
 }

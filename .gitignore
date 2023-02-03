@@ -19,6 +19,9 @@ target/
 *.iml
 *.ipr
 
+.intuitgithookrc
+*.log
+
 .DS_Store
 
 ### NetBeans ###
