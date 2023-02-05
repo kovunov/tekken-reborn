@@ -3,6 +3,9 @@ package com.cpan252.tekkenreborn.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
@@ -13,7 +16,10 @@ import lombok.Data;
 
 @Data
 @Builder
+//By using the @Table annotation, we are telling Spring Data to map the table name to the table
+@Table
 public class Fighter {
+    @Id
     private Long id;
     @NotBlank
     private String name;

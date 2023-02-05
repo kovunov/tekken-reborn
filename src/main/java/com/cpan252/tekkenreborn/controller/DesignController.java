@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cpan252.tekkenreborn.model.Fighter;
 import com.cpan252.tekkenreborn.model.Fighter.Anime;
-import com.cpan252.tekkenreborn.repository.impl.JdbcFighterRepository;
+import com.cpan252.tekkenreborn.repository.FighterRepository;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/design")
 public class DesignController {
 
+    /**
+     * In java you should use the interface instead of the concrete class.
+     * It helps you to switch implementations without having to change the code.
+     */
     @Autowired
-    private JdbcFighterRepository fighterRepository;
+    private FighterRepository fighterRepository;
 
     @GetMapping
     public String design() {
