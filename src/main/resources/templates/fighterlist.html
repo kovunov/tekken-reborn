@@ -84,6 +84,20 @@
           Search By Name Prefix and Date
         </button>
       </form>
+        <ul class="pagination mt-5">
+          <li class="page-item">
+            <a class="page-link" th:href="@{/fighterlist/switchPage(pageToSwitch=${currentPage - 1})}">Previous</a>
+          </li>
+          <li
+            class="page-item"
+            th:classappend="${currentPage + 1 eq page} ? 'active' : 'not'"
+            th:each="page: ${#numbers.sequence(1, totalPages)}"
+          >
+            <a class="page-link" th:text="${page}" th:href="@{/fighterlist/switchPage(pageToSwitch=${page - 1})}" />
+          </li>
+          <li class="page-item"><a class="page-link" th:href="@{/fighterlist/switchPage(pageToSwitch=${currentPage + 1})}">Next</a></li>
+        </ul>
+      </nav>
     </div>
   </body>
 </html>
