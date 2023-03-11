@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 import com.cpan252.tekkenreborn.model.User;
 import com.cpan252.tekkenreborn.repository.UserRepository;
@@ -39,10 +40,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests()
+                .requestMatchers(toH2Console()).permitAll()
                 .requestMatchers("/design", "/fighterlist")
                 .hasRole("USER")
                 .anyRequest().permitAll()
-
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -54,8 +55,7 @@ public class SecurityConfig {
                 // Make H2-Console non-secured; for debug purposes
                 .and()
                 .csrf()
-                .ignoringRequestMatchers("/h2-console/**")
-
+                .ignoringRequestMatchers(toH2Console())
                 // Allow pages to be loaded in frames from the same origin; needed for
                 // H2-Console
                 .and()
