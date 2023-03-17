@@ -1,5 +1,7 @@
 package com.cpan252.tekkenreborn.config;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 import com.cpan252.tekkenreborn.model.User;
 import com.cpan252.tekkenreborn.repository.UserRepository;
@@ -47,7 +48,7 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-
+                .defaultSuccessUrl("/design", true)
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")
@@ -56,6 +57,7 @@ public class SecurityConfig {
                 .and()
                 .csrf()
                 .ignoringRequestMatchers(toH2Console())
+                .ignoringRequestMatchers("/design")
                 // Allow pages to be loaded in frames from the same origin; needed for
                 // H2-Console
                 .and()

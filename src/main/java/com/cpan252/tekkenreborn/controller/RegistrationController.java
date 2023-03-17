@@ -22,12 +22,12 @@ public class RegistrationController {
 
     @GetMapping
     public String showRegistrationForm() {
-        return "register";
+        return "authentication/register";
     }
 
     @PostMapping
     public String registerUserAccount(RegistrationForm form) {
         userRepository.save(form.toUser(passwordEncoder));
-        return "redirect:/login";
+        return "redirect:/";
     }
 }
