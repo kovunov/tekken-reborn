@@ -4,6 +4,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +20,7 @@ import com.cpan252.tekkenreborn.repository.UserRepository;
  * class to define beans that we want to use in our application.
  */
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Bean
@@ -57,7 +59,6 @@ public class SecurityConfig {
                 .and()
                 .csrf()
                 .ignoringRequestMatchers(toH2Console())
-                .ignoringRequestMatchers("/design")
                 // Allow pages to be loaded in frames from the same origin; needed for
                 // H2-Console
                 .and()
