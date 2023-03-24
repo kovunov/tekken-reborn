@@ -41,7 +41,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
+        http
                 .authorizeHttpRequests()
                 .requestMatchers(toH2Console()).permitAll()
                 .requestMatchers("/design", "/fighterlist")
@@ -56,18 +56,14 @@ public class SecurityConfig {
                 .logoutSuccessUrl("/")
 
                 // Make H2-Console non-secured; for debug purposes
-                .and()
-                .csrf()
-                .ignoringRequestMatchers(toH2Console())
                 // Allow pages to be loaded in frames from the same origin; needed for
                 // H2-Console
                 .and()
                 .headers()
-                .frameOptions()
-                .sameOrigin()
+                .frameOptions();
 
-                .and()
-                .build();
+        http.csrf().disable();
+        return http.build();
+
     }
-
 }
